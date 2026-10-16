@@ -1,0 +1,17 @@
+{
+  "analysis_warning": "Overall similarity quintiles are strongly confounded with class prevalence. Primary RQ6 interpretation should use label-stratified quintiles.",
+  "n_external": 2000,
+  "n_benign": 1000,
+  "n_malicious": 1000,
+  "models": [
+    "LR Char+Word",
+    "LR Char",
+    "SVM Char",
+    "SVM Word",
+    "Mistral-7B",
+    "Phi-4",
+    "Gemma-3-27B",
+    "QwQ-32B",
+    "DeepSeek-R1-32B"
+  ]
+}

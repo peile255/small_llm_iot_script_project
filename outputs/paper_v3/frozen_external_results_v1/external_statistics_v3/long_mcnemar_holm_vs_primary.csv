@@ -1,0 +1,9 @@
+family,reference,model,n,ref_correct_alt_wrong,ref_wrong_alt_correct,discordant,p_raw,p_holm,significant_0_05
+conventional_robustness,lr_char_word,lr_char,1417,8,13,21,0.38331031799316406,0.7666206359863281,False
+conventional_robustness,lr_char_word,svm_char,1417,1,42,43,1.000444171950221e-11,3.001332515850663e-11,True
+conventional_robustness,lr_char_word,svm_word,1417,5,7,12,0.7744140625,0.7744140625,False
+llm,lr_char_word,mistral_7b,1417,29,114,143,4.091570083518954e-13,1.2274710250556863e-12,True
+llm,lr_char_word,phi4,1417,12,133,145,5.5591920692657695e-27,2.7795960346328846e-26,True
+llm,lr_char_word,gemma3_27b,1417,276,143,419,7.892382226209681e-11,7.892382226209681e-11,True
+llm,lr_char_word,qwq_32b,1417,34,120,154,1.8953053686021684e-12,3.790610737204337e-12,True
+llm,lr_char_word,deepseek_r1_32b,1417,31,122,153,5.761122611124854e-14,2.3044490444499414e-13,True

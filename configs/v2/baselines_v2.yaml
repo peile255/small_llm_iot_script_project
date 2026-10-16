@@ -1,0 +1,51 @@
+seed: 42
+
+data:
+  processed_dir: data/processed/final_frozen
+  train_file: final_train.csv
+  val_file: final_val.csv
+  test_file: final_test.csv
+
+selection:
+  metric: mcc
+  C_values:
+    - 0.1
+    - 1.0
+    - 2.0
+    - 10.0
+
+models:
+
+  lr_char_word:
+    classifier: logistic_regression
+    feature_mode: char_word
+    char_ngram_range: [3, 5]
+    char_max_features: 200000
+    word_ngram_range: [1, 2]
+    word_max_features: 100000
+    min_df: 2
+    class_weight: balanced
+
+  lr_char:
+    classifier: logistic_regression
+    feature_mode: char
+    char_ngram_range: [3, 5]
+    char_max_features: 200000
+    min_df: 2
+    class_weight: balanced
+
+  svm_char:
+    classifier: linear_svm
+    feature_mode: char
+    char_ngram_range: [3, 5]
+    char_max_features: 200000
+    min_df: 2
+    class_weight: balanced
+
+  svm_word:
+    classifier: linear_svm
+    feature_mode: word
+    word_ngram_range: [1, 2]
+    word_max_features: 100000
+    min_df: 2
+    class_weight: balanced

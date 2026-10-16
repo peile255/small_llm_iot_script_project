@@ -1,0 +1,53 @@
+External validation audit freeze v1.
+
+Source:
+wwe123/Benign_and_malicious_PowerShell_scripts
+
+Raw external files:
+30595
+
+Labels:
+0 = 15173
+1 = 15422
+
+Primary audit universe:
+8518 raw MPSD samples from:
+- powershell_benign_dataset
+- malicious_pure
+
+Preprocessing aligned with prepare_final_split.py:
+- utf-8-sig / utf-16 / utf-16-le / cp1252 / latin-1
+- lowercase
+- normalized line endings
+- whitespace collapse
+
+External cleaning:
+- remove normalized cross-label conflicts
+- deduplicate by normalized SHA256
+- remove normalized-SHA overlap with primary corpus
+- remove cross-corpus near-duplicates
+
+Near-duplicate screening:
+- char_wb TF-IDF
+- ngram_range = (4, 5)
+- min_df = 2
+- max_features = 150000
+- sublinear_tf = True
+- norm = l2
+- cosine similarity threshold = 0.90
+- vectorizer fit on frozen deduplicated primary set (6196 rows)
+
+Final audited external set:
+19632 samples
+- benign: 9324
+- malicious: 10308
+
+Removed near-duplicates:
+186
+- benign: 15
+- malicious: 171
+
+Provenance note:
+- Exact-overlap audit reference corpus = 8518 raw MPSD source samples.
+- Near-duplicate reference corpus = 6196 deduplicated frozen primary samples.
+- The final audited external set was derived from the aligned 19818-row exact-clean candidate set.

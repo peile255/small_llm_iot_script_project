@@ -1,0 +1,17 @@
+numpy>=1.26
+pandas>=2.2
+scikit-learn>=1.5
+scipy>=1.13
+pyyaml>=6.0
+tqdm>=4.66
+transformers>=4.44
+accelerate>=0.33
+torch>=2.3
+sentencepiece>=0.2
+safetensors>=0.4
+bitsandbytes>=0.43; platform_system != "Darwin"
+pytest>=8.2
+datasets>=2.20
+psutil>=6.0
+matplotlib>=3.10
+statsmodels>=0.15

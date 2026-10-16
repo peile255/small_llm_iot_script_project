@@ -1,0 +1,36 @@
+gateway:
+  base_url: "https://llm.uod.otago.ac.nz/v1"
+  api_key_env: "UOD_LLM_API_KEY"
+  timeout_seconds: 180
+  max_retries: 3
+  retry_wait_seconds: 5
+
+data:
+  test_file: "data/processed/gateway_smoke10.csv"
+
+prompt:
+  output_format: "json"
+  max_input_chars: 12000
+  max_tokens: 256
+  temperature: 0
+
+models:
+  gpt_oss_120b:
+    model_id: "gpt-oss-120b"
+    display_name: "GPT-OSS-120B"
+
+  deepseek_v32:
+    model_id: "DeepSeek-V3.2"
+    display_name: "DeepSeek-V3.2"
+
+  kimi_k25:
+    model_id: "Kimi-K2.5"
+    display_name: "Kimi-K2.5"
+
+  gpt_54:
+    model_id: "gpt-5.4"
+    display_name: "GPT-5.4"
+
+  claude_opus_46:
+    model_id: "claude-opus-4-6"
+    display_name: "Claude-Opus-4.6"

@@ -1,0 +1,2 @@
+comparison,primary_f1,codebert_f1,primary_mcc,codebert_mcc,delta_f1,delta_f1_ci_lo,delta_f1_ci_hi,n_bootstrap,bootstrap_seed,primary_correct_model_wrong_b,primary_wrong_model_correct_c,net_correct_gain,discordant_total,mcnemar_p_raw
+CodeBERT - LR Char+Word,0.8069129916567342,0.8754171301446051,0.714029444902913,0.7923335426684541,0.06850413848787085,0.053309271155891846,0.08432936071942888,10000,20260921,24,124,100,148,1.8925795508009764e-17

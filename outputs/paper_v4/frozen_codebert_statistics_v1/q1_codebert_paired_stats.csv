@@ -1,0 +1,2 @@
+model,family,model_recall,delta_recall,delta_recall_ci_lo,delta_recall_ci_hi,n_bootstrap,bootstrap_seed,primary_correct_model_wrong_b,primary_wrong_model_correct_c,net_correct_gain,discordant_total,mcnemar_p_raw
+CodeBERT,pretrained_discriminative,0.415,0.37,0.30000000000000004,0.44,10000,20260921,2,76,74,78,2.039496518310745e-20

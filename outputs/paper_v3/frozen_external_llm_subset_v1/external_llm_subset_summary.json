@@ -1,0 +1,8 @@
+{
+  "seed": 20260922,
+  "n_total": 2000,
+  "n_label_0": 1000,
+  "n_label_1": 1000,
+  "source_final_audited_rows": 19632,
+  "selection": "stratified random sample without replacement"
+}

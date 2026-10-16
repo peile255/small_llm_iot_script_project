@@ -1,0 +1,32 @@
+{
+  "display_name": "Phi-4",
+  "model_id": "phi4:latest",
+  "backend": "Ollama",
+  "ollama_url": "http://127.0.0.1:12233",
+  "generation": {
+    "temperature": 0,
+    "num_predict": 2048,
+    "num_ctx": 8192,
+    "seed": 42
+  },
+  "test": {
+    "n": 2000,
+    "tp": 917,
+    "tn": 973,
+    "fp": 27,
+    "fn": 83,
+    "accuracy": 0.945,
+    "precision": 0.9713983050847458,
+    "recall": 0.917,
+    "f1": 0.9434156378600823,
+    "fpr": 0.027,
+    "fnr": 0.083,
+    "mcc": 0.8913988108642911,
+    "invalid_output_rate": 0.0005,
+    "api_failure_rate": 0.0,
+    "truncation_rate": 0.7085,
+    "median_latency_s": 2.7248309071874246,
+    "median_eval_tokens_per_s": 80.16388549948155,
+    "throughput_files_s": 0.32584114435285155
+  }
+}

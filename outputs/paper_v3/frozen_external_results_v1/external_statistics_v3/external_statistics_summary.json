@@ -1,0 +1,39 @@
+{
+  "seed": 20260921,
+  "n_bootstrap": 10000,
+  "paired_n": 2000,
+  "paired_benign": 1000,
+  "paired_malicious": 1000,
+  "short_n": 583,
+  "long_n": 1417,
+  "long_rate": 0.7085,
+  "long_positive": 767,
+  "long_negative": 650,
+  "primary_model": "lr_char_word",
+  "models": [
+    "lr_char_word",
+    "lr_char",
+    "svm_char",
+    "svm_word",
+    "mistral_7b",
+    "phi4",
+    "gemma3_27b",
+    "qwq_32b",
+    "deepseek_r1_32b"
+  ],
+  "bootstrap_type": "paired sample-level percentile bootstrap",
+  "holm_families": {
+    "conventional_robustness": [
+      "lr_char",
+      "svm_char",
+      "svm_word"
+    ],
+    "llm": [
+      "mistral_7b",
+      "phi4",
+      "gemma3_27b",
+      "qwq_32b",
+      "deepseek_r1_32b"
+    ]
+  }
+}

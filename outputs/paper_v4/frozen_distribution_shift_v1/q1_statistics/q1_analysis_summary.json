@@ -1,0 +1,29 @@
+{
+  "analysis_type": "secondary explanatory analysis",
+  "stratum": "external malicious Q1 farthest by nearest frozen-training TF-IDF similarity",
+  "n_bootstrap": 10000,
+  "bootstrap_seed": 20260921,
+  "primary_model": "LR Char+Word",
+  "primary_recall": 0.045,
+  "similarity_summary": {
+    "n": 200,
+    "similarity_min": 0.047178157,
+    "similarity_mean": 0.18955857584500002,
+    "similarity_median": 0.19788689999999998,
+    "similarity_max": 0.25816074
+  },
+  "holm_families": {
+    "conventional": [
+      "LR Char",
+      "SVM Char",
+      "SVM Word"
+    ],
+    "llm": [
+      "Mistral-7B",
+      "Phi-4",
+      "Gemma-3-27B",
+      "QwQ-32B",
+      "DeepSeek-R1-32B"
+    ]
+  }
+}

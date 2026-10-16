@@ -1,0 +1,31 @@
+{
+  "random_state": 20260911,
+  "near_duplicate_similarity_threshold": 0.9,
+  "raw_primary_n": 8518,
+  "cross_label_hash_conflicts": 6,
+  "deduplicated_primary_n": 6196,
+  "near_duplicate_groups": 4717,
+  "near_duplicate_edges": 212696,
+  "development_tainted_groups": 1099,
+  "train": {
+    "n": 4322,
+    "class_counts": {
+      "0": 2837,
+      "1": 1485
+    }
+  },
+  "val": {
+    "n": 609,
+    "class_counts": {
+      "0": 422,
+      "1": 187
+    }
+  },
+  "test": {
+    "n": 1265,
+    "class_counts": {
+      "0": 1049,
+      "1": 216
+    }
+  }
+}

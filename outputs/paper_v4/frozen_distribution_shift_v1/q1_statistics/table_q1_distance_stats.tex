@@ -1,0 +1,18 @@
+\begin{table}
+\caption{Paired performance on the 200 lexically most distant external malicious scripts.}
+\label{tab:q1_distance_stats}
+\begin{tabular}{lllll}
+\toprule
+Model & Recall & Delta Recall & Fixes/Harms & Holm p \\
+\midrule
+LR Char & 0.045 & +0.000 [-0.015, +0.015] & 1/1 & 1.000 \\
+SVM Char & 0.170 & +0.125 [+0.080, +0.175] & 26/1 & 1.252e-06 \\
+SVM Word & 0.070 & +0.025 [+0.000, +0.055] & 6/1 & 0.250 \\
+Mistral-7B & 0.625 & +0.580 [+0.510, +0.650] & 117/1 & 7.162e-34 \\
+Phi-4 & 0.730 & +0.685 [+0.620, +0.750] & 137/0 & 4.592e-41 \\
+Gemma-3-27B & 0.870 & +0.825 [+0.770, +0.875] & 165/0 & 2.138e-49 \\
+QwQ-32B & 0.635 & +0.590 [+0.520, +0.655] & 118/0 & 1.806e-35 \\
+DeepSeek-R1-32B & 0.625 & +0.580 [+0.510, +0.645] & 116/0 & 4.815e-35 \\
+\bottomrule
+\end{tabular}
+\end{table}

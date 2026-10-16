@@ -1,0 +1,100 @@
+{
+  "analysis_type": "secondary pretrained discriminative baseline analysis",
+  "model": "microsoft/codebert-base",
+  "n_bootstrap": 10000,
+  "bootstrap_seed": 20260921,
+  "internal": {
+    "primary": {
+      "n": 1265,
+      "tp": 197,
+      "tn": 1044,
+      "fp": 5,
+      "fn": 19,
+      "accuracy": 0.9810276679841897,
+      "precision": 0.9752475247524752,
+      "recall": 0.9120370370370371,
+      "f1": 0.9425837320574163,
+      "mcc": 0.9319854603235259
+    },
+    "codebert": {
+      "n": 1265,
+      "tp": 208,
+      "tn": 1028,
+      "fp": 21,
+      "fn": 8,
+      "accuracy": 0.9770750988142293,
+      "precision": 0.9082969432314411,
+      "recall": 0.9629629629629629,
+      "f1": 0.9348314606741573,
+      "mcc": 0.9215159463608457
+    },
+    "paired": {
+      "delta_f1": -0.007752271383258957,
+      "delta_f1_ci_lo": -0.033509186827514435,
+      "delta_f1_ci_hi": 0.018463517463329228,
+      "n_bootstrap": 10000,
+      "bootstrap_seed": 20260921,
+      "primary_correct_model_wrong_b": 19,
+      "primary_wrong_model_correct_c": 14,
+      "net_correct_gain": -5,
+      "discordant_total": 33,
+      "mcnemar_p_raw": 0.48685024166479707
+    }
+  },
+  "external_2000": {
+    "primary": {
+      "n": 2000,
+      "tp": 677,
+      "tn": 999,
+      "fp": 1,
+      "fn": 323,
+      "accuracy": 0.838,
+      "precision": 0.9985250737463127,
+      "recall": 0.677,
+      "f1": 0.8069129916567342,
+      "mcc": 0.714029444902913
+    },
+    "codebert": {
+      "n": 2000,
+      "tp": 787,
+      "tn": 989,
+      "fp": 11,
+      "fn": 213,
+      "accuracy": 0.888,
+      "precision": 0.9862155388471178,
+      "recall": 0.787,
+      "f1": 0.8754171301446051,
+      "mcc": 0.7923335426684541
+    },
+    "paired": {
+      "delta_f1": 0.06850413848787085,
+      "delta_f1_ci_lo": 0.053309271155891846,
+      "delta_f1_ci_hi": 0.08432936071942888,
+      "n_bootstrap": 10000,
+      "bootstrap_seed": 20260921,
+      "primary_correct_model_wrong_b": 24,
+      "primary_wrong_model_correct_c": 124,
+      "net_correct_gain": 100,
+      "discordant_total": 148,
+      "mcnemar_p_raw": 1.8925795508009764e-17
+    }
+  },
+  "q1_farthest_malicious": {
+    "n": 200,
+    "primary_recall": 0.045,
+    "codebert_recall": 0.415,
+    "paired": {
+      "delta_recall": 0.37,
+      "delta_recall_ci_lo": 0.30000000000000004,
+      "delta_recall_ci_hi": 0.44,
+      "n_bootstrap": 10000,
+      "bootstrap_seed": 20260921,
+      "primary_correct_model_wrong_b": 2,
+      "primary_wrong_model_correct_c": 76,
+      "net_correct_gain": 74,
+      "discordant_total": 78,
+      "mcnemar_p_raw": 2.039496518310745e-20
+    }
+  },
+  "multiple_testing_note": "CodeBERT was added as a separate pretrained discriminative baseline. Previously frozen Holm-adjusted families for conventional classifiers and LLMs were not retroactively changed."
+}

@@ -1,0 +1,20 @@
+{
+  "preprocessing_alignment": "prepare_final_split.py",
+  "external_total": 30595,
+  "external_label_0": 15173,
+  "external_label_1": 15422,
+  "external_unknown_label": 0,
+  "external_unique_raw_sha": 26260,
+  "external_unique_normalized_sha": 25989,
+  "external_internal_raw_duplicate_rows": 6309,
+  "external_internal_normalized_duplicate_rows": 6744,
+  "external_cross_label_raw_conflict_rows": 40,
+  "external_cross_label_normalized_conflict_rows": 109,
+  "primary_reference_files": 8518,
+  "primary_label_0": 4316,
+  "primary_label_1": 4202,
+  "exact_raw_overlap_rows": 552328,
+  "exact_raw_overlap_unique_external": 6949,
+  "normalized_overlap_rows": 554377,
+  "normalized_overlap_unique_external": 8459
+}

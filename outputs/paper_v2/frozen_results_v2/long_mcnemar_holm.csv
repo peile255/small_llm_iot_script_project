@@ -1,0 +1,6 @@
+model,both_correct,baseline_only_correct,model_only_correct,both_wrong,p_value,p_holm,reject_holm_0_05
+mistral_7b,224,17,7,7,0.06391465663909912,0.2556586265563965,False
+phi4,233,8,10,4,0.8145294189453125,1.0,False
+gemma3_27b,154,87,10,4,1.7877527700122911e-16,8.938763850061455e-16,True
+qwq_32b,226,15,8,6,0.21003961563110352,0.6301188468933105,False
+deepseek_r1_32b,231,10,10,4,1.0,1.0,False

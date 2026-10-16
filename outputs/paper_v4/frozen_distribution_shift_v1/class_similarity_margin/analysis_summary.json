@@ -1,0 +1,5 @@
+{
+  "n": 2000,
+  "feature_space": "train-fitted char_wb TF-IDF 4-5",
+  "margin_definition": "nearest same-class similarity minus nearest opposite-class similarity"
+}

@@ -1,0 +1,12 @@
+The fine-tuned CodeBERT checkpoint weights are not included in this
+GitHub package because of repository size constraints.
+
+The model can be reproduced using:
+  configs/v4/codebert_v4.yaml
+  scripts/run_codebert_v4.py
+
+Base model:
+  microsoft/codebert-base
+
+This directory retains the frozen prediction files, evaluation metrics,
+training summary, and validation results used in the reported analysis.

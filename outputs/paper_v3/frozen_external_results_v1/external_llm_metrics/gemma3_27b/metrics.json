@@ -1,0 +1,32 @@
+{
+  "display_name": "Gemma-3-27B",
+  "model_id": "gemma3:27b",
+  "backend": "Ollama",
+  "ollama_url": "http://127.0.0.1:12234",
+  "generation": {
+    "temperature": 0,
+    "num_predict": 2048,
+    "num_ctx": 8192,
+    "seed": 42
+  },
+  "test": {
+    "n": 2000,
+    "tp": 960,
+    "tn": 605,
+    "fp": 395,
+    "fn": 40,
+    "accuracy": 0.7825,
+    "precision": 0.7084870848708487,
+    "recall": 0.96,
+    "f1": 0.8152866242038217,
+    "fpr": 0.395,
+    "fnr": 0.04,
+    "mcc": 0.6043644953685706,
+    "invalid_output_rate": 0.0,
+    "api_failure_rate": 0.0,
+    "truncation_rate": 0.7085,
+    "median_latency_s": 2.843762793461792,
+    "median_eval_tokens_per_s": 45.17860399860189,
+    "throughput_files_s": 0.3958531365479398
+  }
+}

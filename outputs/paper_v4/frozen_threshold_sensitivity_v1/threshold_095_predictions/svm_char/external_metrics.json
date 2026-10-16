@@ -1,0 +1,20 @@
+{
+  "n": 19683,
+  "tp": 7653,
+  "tn": 9304,
+  "fp": 22,
+  "fn": 2704,
+  "accuracy": 0.8615048519026571,
+  "precision": 0.9971335504885993,
+  "recall": 0.7389205368349908,
+  "f1": 0.8488243123336291,
+  "fpr": 0.0023589963542783618,
+  "fnr": 0.2610794631650092,
+  "mcc": 0.7540483612385318,
+  "model": "svm_char",
+  "C": 1.0,
+  "train_seconds": 0.5829918514937162,
+  "classifier_predict_seconds": 0.5022172685712576,
+  "evaluation": "threshold_sensitivity_0.95",
+  "feature_representation": "shared precomputed TF-IDF matrices"
+}

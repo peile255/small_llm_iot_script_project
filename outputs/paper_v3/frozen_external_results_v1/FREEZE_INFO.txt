@@ -1,0 +1,33 @@
+External validation result freeze v1
+
+Parent external audit:
+outputs/paper_v3/frozen_external_v1
+
+Frozen LLM subset:
+outputs/paper_v3/frozen_external_llm_subset_v1
+
+Full audited external corpus:
+n = 19632
+benign = 9324
+malicious = 10308
+
+Pre-specified LLM comparison subset:
+n = 2000
+benign = 1000
+malicious = 1000
+seed = 20260922
+
+Statistics:
+bootstrap replicates = 10000
+statistics seed = 20260921
+bootstrap = paired sample-level percentile bootstrap
+
+Primary comparator:
+character- and word-level TF-IDF feature union
+with logistic regression, C = 2.0
+
+This freeze was created after completion of:
+- four full external conventional evaluations
+- five external LLM evaluations
+- same-sample paired external analysis
+- length-stratified external analysis

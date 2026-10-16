@@ -1,0 +1,22 @@
+\begin{table*}[t]
+\centering
+\caption{Predictive and operational characteristics. Latency statistics differ by model family: conventional classifiers report mean per-file latency over batch inference, whereas LLMs report the median of per-sample latencies recorded during Ollama inference.}
+\label{tab:operational}
+\small
+\begin{tabular}{llrrrrrr}
+\toprule
+Family & Model & F1 & Recall & MCC & Latency (s) & Files/s & Invalid \\
+\midrule
+Conventional & LR char+word (frozen) & 0.9426 & 0.9120 & 0.9320 & 0.0142 (mean) & 70.34 & 0.00\% \\
+Conventional & LR char & 0.9336 & 0.9120 & 0.9207 & 0.0138 (mean) & 72.56 & 0.00\% \\
+Conventional & Linear SVM char & 0.9415 & 0.9306 & 0.9297 & 0.0144 (mean) & 69.32 & 0.00\% \\
+Conventional & Linear SVM word & 0.9431 & 0.9213 & 0.9321 & 0.0007 (mean) & 1482.99 & 0.00\% \\
+\midrule
+Local LLM & Mistral-7B-Instruct-v0.3 & 0.7918 & 0.8981 & 0.7508 & 0.3559 (median) & 2.42 & 6.64\% \\
+Local LLM & Phi-4 & 0.8955 & 0.9722 & 0.8760 & 2.5714 (median) & 0.36 & 0.00\% \\
+Local LLM & Gemma-3-27B & 0.6082 & 0.9954 & 0.5654 & 1.1934 (median) & 0.72 & 0.00\% \\
+Local LLM & QwQ-32B & 0.7749 & 0.9722 & 0.7413 & 12.7817 (median) & 0.07 & 1.74\% \\
+Local LLM & DeepSeek-R1-32B & 0.8566 & 0.9815 & 0.8328 & 12.4858 (median) & 0.08 & 2.06\% \\
+\bottomrule
+\end{tabular}
+\end{table*}

@@ -1,0 +1,39 @@
+ollama:
+  base_url: "http://127.0.0.1:11434"
+  timeout_seconds: 300
+  max_retries: 2
+  retry_wait_seconds: 3
+
+data:
+  test_file: "data/processed/gateway_smoke10.csv"
+
+prompt:
+  output_format: "json"
+  max_input_chars: 6000
+
+generation:
+  temperature: 0
+  num_predict: 512
+  num_ctx: 4096
+  seed: 42
+
+models:
+  mistral_7b:
+    model_id: "mistral:7b"
+    display_name: "Mistral-7B-Instruct-v0.3"
+
+  phi4:
+    model_id: "phi4:latest"
+    display_name: "Phi-4"
+
+  gemma3_27b:
+    model_id: "gemma3:27b"
+    display_name: "Gemma-3-27B"
+
+  qwq_32b:
+    model_id: "qwq:32b"
+    display_name: "QwQ-32B"
+
+  deepseek_r1_32b:
+    model_id: "deepseek-r1:32b"
+    display_name: "DeepSeek-R1-32B"

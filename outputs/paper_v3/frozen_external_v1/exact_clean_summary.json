@@ -1,0 +1,16 @@
+{
+  "raw_external_rows": 30595,
+  "raw_label_0": 15173,
+  "raw_label_1": 15422,
+  "cross_label_conflict_hashes": 44,
+  "cross_label_conflict_rows": 109,
+  "after_conflict_removal_rows": 30486,
+  "removed_internal_duplicate_copies": 4541,
+  "after_internal_dedup_rows": 25945,
+  "removed_primary_exact_overlap_rows": 6127,
+  "removed_primary_exact_overlap_label_0": 4252,
+  "removed_primary_exact_overlap_label_1": 1875,
+  "exact_clean_rows": 19818,
+  "exact_clean_label_0": 9339,
+  "exact_clean_label_1": 10479
+}

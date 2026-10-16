@@ -1,0 +1,25 @@
+External LLM evaluation subset freeze v1.
+
+Parent audited external set:
+19632 samples
+- benign: 9324
+- malicious: 10308
+
+Subset:
+2000 samples
+- benign: 1000
+- malicious: 1000
+
+Sampling:
+- stratified by label
+- without replacement
+- random seed = 20260922
+
+The subset was frozen before any external LLM evaluation.
+
+All samples passed:
+- normalized SHA exact-overlap removal
+- internal deduplication
+- cross-label conflict removal
+- cross-corpus near-duplicate screening
+- maximum similarity to frozen primary corpus < 0.90

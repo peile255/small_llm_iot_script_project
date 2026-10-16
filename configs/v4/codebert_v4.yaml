@@ -1,0 +1,26 @@
+model_name: microsoft/codebert-base
+
+seed: 20260911
+
+max_length: 512
+
+train_batch_size: 8
+eval_batch_size: 16
+
+learning_rate: 2.0e-5
+weight_decay: 0.01
+
+num_train_epochs: 5
+
+warmup_ratio: 0.1
+
+metric_for_best_model: f1
+greater_is_better: true
+
+train_csv: data/processed/final_frozen/final_train.csv
+val_csv: data/processed/final_frozen/final_val.csv
+test_csv: data/processed/final_frozen/final_test.csv
+
+external_csv: outputs/paper_v3/frozen_external_llm_subset_v1/external_llm_subset_2000.csv
+
+output_dir: outputs/paper_v4/codebert_v1

@@ -1,0 +1,5 @@
+threshold,ranking,best_model
+0.8,svm_char > lr_char > svm_word > lr_char_word,svm_char
+0.85,svm_char > lr_char > svm_word > lr_char_word,svm_char
+0.9,svm_char > lr_char > svm_word > lr_char_word,svm_char
+0.95,svm_char > lr_char > svm_word > lr_char_word,svm_char

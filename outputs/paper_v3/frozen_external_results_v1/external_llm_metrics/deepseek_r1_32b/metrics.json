@@ -1,0 +1,32 @@
+{
+  "display_name": "DeepSeek-R1-32B",
+  "model_id": "deepseek-r1:32b",
+  "backend": "Ollama",
+  "ollama_url": "http://127.0.0.1:12236",
+  "generation": {
+    "temperature": 0,
+    "num_predict": 2048,
+    "num_ctx": 8192,
+    "seed": 42
+  },
+  "test": {
+    "n": 2000,
+    "tp": 882,
+    "tn": 956,
+    "fp": 44,
+    "fn": 118,
+    "accuracy": 0.919,
+    "precision": 0.9524838012958964,
+    "recall": 0.882,
+    "f1": 0.9158878504672897,
+    "fpr": 0.044,
+    "fnr": 0.118,
+    "mcc": 0.8403039104901453,
+    "invalid_output_rate": 0.032,
+    "api_failure_rate": 0.0,
+    "truncation_rate": 0.7085,
+    "median_latency_s": 14.327343344921246,
+    "median_eval_tokens_per_s": 37.373680500653464,
+    "throughput_files_s": 0.06879883062938753
+  }
+}

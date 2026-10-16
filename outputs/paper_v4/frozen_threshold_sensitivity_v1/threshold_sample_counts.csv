@@ -1,0 +1,5 @@
+threshold,retained_n,removed_n,retained_label_0,retained_label_1,removed_label_0,removed_label_1
+0.8,19293,525,9296,9997,43,482
+0.85,19463,355,9320,10143,19,336
+0.9,19632,186,9324,10308,15,171
+0.95,19683,135,9326,10357,13,122

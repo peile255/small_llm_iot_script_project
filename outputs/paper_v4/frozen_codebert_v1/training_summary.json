@@ -1,0 +1,13 @@
+{
+  "train_elapsed_s": 348.7802906036377,
+  "best_metric": 0.9762532981530343,
+  "best_model_checkpoint": "outputs/paper_v4/codebert_v1/checkpoints/checkpoint-2164",
+  "train_metrics": {
+    "train_runtime": 341.4262,
+    "train_samples_per_second": 63.293,
+    "train_steps_per_second": 7.923,
+    "total_flos": 5685763100788200.0,
+    "train_loss": 0.06735865693546267,
+    "epoch": 5.0
+  }
+}

@@ -1,0 +1,36 @@
+Paper V2 robustness-analysis freeze.
+
+Primary frozen reference:
+- Hybrid character + word TF-IDF
+- Logistic regression
+- C = 2.0
+- Frozen test set n = 1265
+
+Additional conventional robustness baselines:
+- Character TF-IDF + Logistic Regression
+- Character TF-IDF + Linear SVM
+- Word TF-IDF + Linear SVM
+
+Hyperparameter selection:
+- Validation partition only
+- Primary metric: MCC
+- Candidate C: 0.1, 1.0, 2.0, 10.0
+
+Statistical robustness:
+- 10,000-replicate group-aware bootstrap
+- near-duplicate group_id as resampling unit
+- paired group-bootstrap delta F1
+- exact McNemar tests
+- family-wise Holm correction
+
+Overall test:
+- n = 1265
+- near-duplicate groups = 1208
+
+Long-script subset:
+- n = 255
+- positives = 23
+- near-duplicate groups = 241
+
+This V2 freeze supplements, but does not overwrite,
+the original frozen paper results under outputs/final/frozen_results/.

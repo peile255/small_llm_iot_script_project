@@ -1,0 +1,32 @@
+{
+  "display_name": "QwQ-32B",
+  "model_id": "qwq:32b",
+  "backend": "Ollama",
+  "ollama_url": "http://127.0.0.1:12235",
+  "generation": {
+    "temperature": 0,
+    "num_predict": 2048,
+    "num_ctx": 8192,
+    "seed": 42
+  },
+  "test": {
+    "n": 2000,
+    "tp": 887,
+    "tn": 935,
+    "fp": 65,
+    "fn": 113,
+    "accuracy": 0.911,
+    "precision": 0.9317226890756303,
+    "recall": 0.887,
+    "f1": 0.9088114754098361,
+    "fpr": 0.065,
+    "fnr": 0.113,
+    "mcc": 0.8229485834673118,
+    "invalid_output_rate": 0.0465,
+    "api_failure_rate": 0.0,
+    "truncation_rate": 0.7085,
+    "median_latency_s": 15.453561299596913,
+    "median_eval_tokens_per_s": 37.14899103851642,
+    "throughput_files_s": 0.059926577984740374
+  }
+}

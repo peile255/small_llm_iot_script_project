@@ -1,0 +1,27 @@
+{
+  "lr_char_word": {
+    "matched_rows": 19632,
+    "label_mismatches": 0,
+    "prediction_mismatches": 0,
+    "exact_identity": true
+  },
+  "lr_char": {
+    "matched_rows": 19632,
+    "label_mismatches": 0,
+    "prediction_mismatches": 0,
+    "exact_identity": true
+  },
+  "svm_char": {
+    "matched_rows": 19632,
+    "label_mismatches": 0,
+    "prediction_mismatches": 0,
+    "exact_identity": true
+  },
+  "svm_word": {
+    "matched_rows": 19632,
+    "label_mismatches": 0,
+    "prediction_mismatches": 0,
+    "exact_identity": true
+  },
+  "all_models_exact_identity": true
+}

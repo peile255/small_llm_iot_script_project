@@ -1,0 +1,81 @@
+class,label,similarity_quintile,model,n,fixes_primary_errors,introduces_errors,net_correct_gain,net_correct_gain_rate
+benign,0,Q3,LR Char,200,0,0,0,0.0
+benign,0,Q3,SVM Char,200,0,0,0,0.0
+benign,0,Q3,SVM Word,200,0,2,-2,-0.01
+benign,0,Q3,Mistral-7B,200,0,19,-19,-0.095
+benign,0,Q3,Phi-4,200,0,8,-8,-0.04
+benign,0,Q3,Gemma-3-27B,200,0,88,-88,-0.44
+benign,0,Q3,QwQ-32B,200,0,14,-14,-0.07
+benign,0,Q3,DeepSeek-R1-32B,200,0,9,-9,-0.045
+benign,0,Q2,LR Char,200,0,0,0,0.0
+benign,0,Q2,SVM Char,200,0,0,0,0.0
+benign,0,Q2,SVM Word,200,0,0,0,0.0
+benign,0,Q2,Mistral-7B,200,0,6,-6,-0.03
+benign,0,Q2,Phi-4,200,0,1,-1,-0.005
+benign,0,Q2,Gemma-3-27B,200,0,92,-92,-0.46
+benign,0,Q2,QwQ-32B,200,0,3,-3,-0.015
+benign,0,Q2,DeepSeek-R1-32B,200,0,3,-3,-0.015
+benign,0,Q4,LR Char,200,1,0,1,0.005
+benign,0,Q4,SVM Char,200,0,1,-1,-0.005
+benign,0,Q4,SVM Word,200,0,1,-1,-0.005
+benign,0,Q4,Mistral-7B,200,1,14,-13,-0.065
+benign,0,Q4,Phi-4,200,1,7,-6,-0.03
+benign,0,Q4,Gemma-3-27B,200,0,73,-73,-0.365
+benign,0,Q4,QwQ-32B,200,1,22,-21,-0.105
+benign,0,Q4,DeepSeek-R1-32B,200,1,11,-10,-0.05
+benign,0,Q1_farthest,LR Char,200,0,0,0,0.0
+benign,0,Q1_farthest,SVM Char,200,0,0,0,0.0
+benign,0,Q1_farthest,SVM Word,200,0,0,0,0.0
+benign,0,Q1_farthest,Mistral-7B,200,0,5,-5,-0.025
+benign,0,Q1_farthest,Phi-4,200,0,1,-1,-0.005
+benign,0,Q1_farthest,Gemma-3-27B,200,0,70,-70,-0.35
+benign,0,Q1_farthest,QwQ-32B,200,0,12,-12,-0.06
+benign,0,Q1_farthest,DeepSeek-R1-32B,200,0,16,-16,-0.08
+benign,0,Q5_closest,LR Char,200,0,0,0,0.0
+benign,0,Q5_closest,SVM Char,200,0,1,-1,-0.005
+benign,0,Q5_closest,SVM Word,200,0,1,-1,-0.005
+benign,0,Q5_closest,Mistral-7B,200,0,20,-20,-0.1
+benign,0,Q5_closest,Phi-4,200,0,10,-10,-0.05
+benign,0,Q5_closest,Gemma-3-27B,200,0,71,-71,-0.355
+benign,0,Q5_closest,QwQ-32B,200,0,14,-14,-0.07
+benign,0,Q5_closest,DeepSeek-R1-32B,200,0,5,-5,-0.025
+malicious,1,Q2,LR Char,200,2,1,1,0.005
+malicious,1,Q2,SVM Char,200,3,0,3,0.015
+malicious,1,Q2,SVM Word,200,4,1,3,0.015
+malicious,1,Q2,Mistral-7B,200,38,1,37,0.185
+malicious,1,Q2,Phi-4,200,43,0,43,0.215
+malicious,1,Q2,Gemma-3-27B,200,55,0,55,0.275
+malicious,1,Q2,QwQ-32B,200,45,1,44,0.22
+malicious,1,Q2,DeepSeek-R1-32B,200,44,3,41,0.205
+malicious,1,Q1_farthest,LR Char,200,1,1,0,0.0
+malicious,1,Q1_farthest,SVM Char,200,26,1,25,0.125
+malicious,1,Q1_farthest,SVM Word,200,6,1,5,0.025
+malicious,1,Q1_farthest,Mistral-7B,200,117,1,116,0.58
+malicious,1,Q1_farthest,Phi-4,200,137,0,137,0.685
+malicious,1,Q1_farthest,Gemma-3-27B,200,165,0,165,0.825
+malicious,1,Q1_farthest,QwQ-32B,200,118,0,118,0.59
+malicious,1,Q1_farthest,DeepSeek-R1-32B,200,116,0,116,0.58
+malicious,1,Q4,LR Char,200,0,0,0,0.0
+malicious,1,Q4,SVM Char,200,0,0,0,0.0
+malicious,1,Q4,SVM Word,200,1,0,1,0.005
+malicious,1,Q4,Mistral-7B,200,0,0,0,0.0
+malicious,1,Q4,Phi-4,200,2,0,2,0.01
+malicious,1,Q4,Gemma-3-27B,200,2,0,2,0.01
+malicious,1,Q4,QwQ-32B,200,1,0,1,0.005
+malicious,1,Q4,DeepSeek-R1-32B,200,1,0,1,0.005
+malicious,1,Q5_closest,LR Char,200,10,1,9,0.045
+malicious,1,Q5_closest,SVM Char,200,24,1,23,0.115
+malicious,1,Q5_closest,SVM Word,200,3,2,1,0.005
+malicious,1,Q5_closest,Mistral-7B,200,40,7,33,0.165
+malicious,1,Q5_closest,Phi-4,200,48,0,48,0.24
+malicious,1,Q5_closest,Gemma-3-27B,200,50,0,50,0.25
+malicious,1,Q5_closest,QwQ-32B,200,44,3,41,0.205
+malicious,1,Q5_closest,DeepSeek-R1-32B,200,44,4,40,0.2
+malicious,1,Q3,LR Char,200,4,6,-2,-0.01
+malicious,1,Q3,SVM Char,200,4,0,4,0.02
+malicious,1,Q3,SVM Word,200,1,0,1,0.005
+malicious,1,Q3,Mistral-7B,200,9,6,3,0.015
+malicious,1,Q3,Phi-4,200,10,0,10,0.05
+malicious,1,Q3,Gemma-3-27B,200,11,0,11,0.055
+malicious,1,Q3,QwQ-32B,200,7,1,6,0.03
+malicious,1,Q3,DeepSeek-R1-32B,200,8,1,7,0.035

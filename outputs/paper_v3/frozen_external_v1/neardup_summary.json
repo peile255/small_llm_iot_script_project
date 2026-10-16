@@ -1,0 +1,25 @@
+{
+  "threshold": 0.9,
+  "vectorizer": "char_wb TF-IDF 4-5",
+  "fit_scope": "frozen deduplicated primary only",
+  "primary_rows": 6196,
+  "external_exact_clean_rows": 19818,
+  "external_exact_clean_label_0": 9339,
+  "external_exact_clean_label_1": 10479,
+  "removed_neardup_rows": 186,
+  "removed_neardup_label_0": 15,
+  "removed_neardup_label_1": 171,
+  "final_audited_rows": 19632,
+  "final_audited_label_0": 9324,
+  "final_audited_label_1": 10308,
+  "same_label_neardup_rows": 149,
+  "cross_label_neardup_rows": 37,
+  "similarity_quantiles": {
+    "0.5": 0.30316489934921265,
+    "0.9": 0.5235901474952698,
+    "0.95": 0.6109299063682556,
+    "0.99": 0.8897759914398193,
+    "0.999": 0.9999114274978638,
+    "1.0": 1.0
+  }
+}

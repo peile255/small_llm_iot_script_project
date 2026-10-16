@@ -1,0 +1,56 @@
+{
+  "analysis_type": "near-duplicate threshold sensitivity",
+  "similarity_definition": "nearest frozen-primary char_wb TF-IDF cosine similarity",
+  "threshold_rule": "retain if nearest_primary_similarity < threshold",
+  "thresholds": [
+    0.8,
+    0.85,
+    0.9,
+    0.95
+  ],
+  "exact_clean_n": 19818,
+  "threshold_counts": [
+    {
+      "threshold": 0.8,
+      "retained_n": 19293,
+      "removed_n": 525,
+      "retained_label_0": 9296,
+      "retained_label_1": 9997,
+      "removed_label_0": 43,
+      "removed_label_1": 482
+    },
+    {
+      "threshold": 0.85,
+      "retained_n": 19463,
+      "removed_n": 355,
+      "retained_label_0": 9320,
+      "retained_label_1": 10143,
+      "removed_label_0": 19,
+      "removed_label_1": 336
+    },
+    {
+      "threshold": 0.9,
+      "retained_n": 19632,
+      "removed_n": 186,
+      "retained_label_0": 9324,
+      "retained_label_1": 10308,
+      "removed_label_0": 15,
+      "removed_label_1": 171
+    },
+    {
+      "threshold": 0.95,
+      "retained_n": 19683,
+      "removed_n": 135,
+      "retained_label_0": 9326,
+      "retained_label_1": 10357,
+      "removed_label_0": 13,
+      "removed_label_1": 122
+    }
+  ],
+  "extra_090_to_095_n": 51,
+  "extra_090_to_095_labels": {
+    "0": 2,
+    "1": 49
+  },
+  "note": "Performance for thresholds 0.80, 0.85, and 0.90 is computed by filtering the existing 0.90 prediction set. Threshold 0.95 additionally requires predictions for the samples with similarity in [0.90, 0.95)."
+}
