@@ -1,427 +1,545 @@
-# Small-LLM Malicious Script Identification for IoT Security
+# Leakage-Controlled Evaluation of Local LLMs for Malicious PowerShell Detection
 
-Reproducible static-only experiment project for the manuscript:
+Reproducibility package for the study:
 
-**Analyzing the Efficacy of Small-Scale LLMs in Malicious Script Identification for IoT Security**
+**Beyond In-Distribution Accuracy: Leakage-Controlled External Evaluation of Local LLMs for Malicious PowerShell Detection**
 
-## Safety Model
+This repository contains the code, frozen manifests, per-sample predictions, statistical outputs, and robustness analyses used in the study. The main comparison covers:
 
-All dataset scripts are treated as untrusted inert text.
+- conventional sparse-text classifiers;
+- a pretrained discriminative code model (CodeBERT); and
+- five local generative LLMs.
 
-- Dataset scripts are never executed.
-- Raw malware samples are not bundled with this repository.
-- No dataset sample is passed to `pwsh`, `powershell.exe`, `bash`, `cmd`, `eval`, or `exec`.
-- Malware data should be handled in an isolated research environment and according to dataset licenses and institutional policies.
+The central result is that **model ordering is distribution dependent**: sparse lexical classifiers are strongest on the leakage-controlled internal test set, whereas CodeBERT and several local LLMs improve substantially under contamination-controlled external evaluation.
 
-## Public Data Sources
+> **Safety:** PowerShell files are treated only as inert text. Dataset scripts are never executed by the experimental pipeline.
 
-### Primary dataset
+---
 
-MPSD:
-
-https://github.com/das-lab/mpsd
-
-Associated publication:
-
-Fang, Zhou, Huang, *Neurocomputing* 448 (2021), 30--39.
-
-DOI:
-
-10.1016/j.neucom.2021.03.117
-
-### External malicious-source stress-test dataset
-
-https://github.com/Fa2y/Malicious-PowerShell-Dataset
-
-This dataset contains malicious samples only. Evaluation on this source should therefore focus on metrics such as recall and false-negative rate.
-
-### Optional secondary labeled dataset
-
-https://huggingface.co/datasets/wwe123/Benign_and_malicious_PowerShell_scripts
-
-This dataset may be used for additional external evaluation after provenance and overlap auditing.
-
-## Final Experimental Pipeline
-
-The final paper workflow is:
-
-1. Download the public MPSD data.
-2. Prepare the primary dataset.
-3. Remove cross-label exact-hash conflicts.
-4. Remove exact duplicates using SHA-256.
-5. Normalize scripts for similarity analysis.
-6. Construct character-level TF-IDF representations.
-7. Build near-duplicate groups using cosine similarity >= 0.90.
-8. Exclude development-contaminated groups from the final test set.
-9. Build leakage-controlled train/validation/test partitions.
-10. Freeze and checksum the final split.
-11. Run the conventional baseline.
-12. Run the five final Ollama-based local LLMs.
-13. Generate per-sample predictions and metrics.
-14. Run statistical and long-script analyses.
-15. Evaluate selective hybrid verification.
-16. Generate publication figures.
-17. Generate LaTeX tables.
-
-## Final Dataset Preparation
-
-Generate the leakage-controlled final split with:
-
-```bash
-python scripts/prepare_final_split.py
-```
-
-The final split procedure includes:
-
-- SHA-256 hashing;
-- removal of cross-label exact-hash conflicts;
-- exact duplicate removal;
-- lowercasing and whitespace normalization for similarity analysis;
-- character-level TF-IDF with 4--5 character n-grams;
-- cosine-similarity near-duplicate detection;
-- near-duplicate threshold of 0.90;
-- group-aware splitting;
-- exclusion of groups containing development samples from the final test set;
-- SHA-256 overlap checks;
-- near-duplicate group overlap checks.
-
-Frozen final data are stored under:
+## Repository Layout
 
 ```text
-data/processed/final_frozen/
+.
+├── configs/
+│   ├── experiment_final.yaml
+│   ├── ollama_final.yaml
+│   ├── v2/baselines_v2.yaml
+│   └── v4/codebert_v4.yaml
+├── data/
+│   └── processed/final_frozen/
+├── outputs/
+│   ├── paper_v2/frozen_results_v2/
+│   ├── paper_v3/
+│   │   ├── frozen_external_v1/
+│   │   ├── frozen_external_llm_subset_v1/
+│   │   └── frozen_external_results_v1/
+│   └── paper_v4/
+│       ├── frozen_distribution_shift_v1/
+│       ├── frozen_codebert_v1/
+│       ├── frozen_codebert_statistics_v1/
+│       └── frozen_threshold_sensitivity_v1/
+├── scripts/
+├── src/
+├── requirements.txt
+└── SHA256SUMS.txt
 ```
 
-Expected frozen files include:
+The `frozen_*` directories are the result snapshots used for manuscript integration. They should be treated as read-only.
+
+---
+
+## Research Questions
+
+The final study addresses six questions:
+
+1. **RQ1 — Internal comparison:** How do conventional sparse-text classifiers compare with local LLMs on a leakage-controlled frozen test set?
+2. **RQ2 — Long scripts:** How does performance differ for scripts exceeding 6,000 characters?
+3. **RQ3 — Selective verification:** Can an exploratory hybrid rule exploit complementary LLM errors while invoking an LLM only for selected cases?
+4. **RQ4 — External validation:** Does the internal model ordering persist on a contamination-controlled external corpus?
+5. **RQ5 — Audit robustness:** Is the external conventional-model ordering sensitive to the near-duplicate exclusion threshold?
+6. **RQ6 — Lexical distance:** How is distance from the frozen training distribution associated with relative external performance?
+
+---
+
+## Model Families
+
+### Conventional classifiers
+
+The primary sparse classifier is a character- and word-level TF-IDF feature union with logistic regression.
+
+Additional robustness baselines are:
+
+- character TF-IDF + logistic regression;
+- character TF-IDF + linear SVM;
+- word TF-IDF + linear SVM.
+
+Relevant files:
 
 ```text
-final_train.csv
-final_val.csv
-final_test.csv
-final_split_summary.json
-SHA256SUMS.txt
+configs/v2/baselines_v2.yaml
+scripts/run_baselines_v2.py
+run_baselines_v2.slurm
+scripts/run_external_baselines_v3_1.py
+run_external_baselines_v3_1.slurm
 ```
 
-Verify frozen data before running final experiments:
+### CodeBERT
 
-```bash
-cd data/processed/final_frozen
-sha256sum -c SHA256SUMS.txt
-cd ../../..
-```
-
-## Conventional Baseline
-
-The final conventional baseline uses character-level TF-IDF features and logistic regression.
-
-Configuration:
+The pretrained discriminative baseline uses:
 
 ```text
-configs/experiment_final.yaml
+microsoft/codebert-base
 ```
 
-Final SLURM script:
+Relevant files:
 
 ```text
-run_baseline_final.slurm
+configs/v4/codebert_v4.yaml
+scripts/run_codebert_v4.py
+outputs/paper_v4/frozen_codebert_v1/
+outputs/paper_v4/frozen_codebert_statistics_v1/
 ```
 
-Run:
-
-```bash
-sbatch run_baseline_final.slurm
-```
-
-Important baseline settings:
+The fine-tuned checkpoint weights are intentionally not included in this GitHub package because of repository-size constraints. The frozen prediction files and evaluation summaries are included, and the model can be reproduced from the configuration and training script. See:
 
 ```text
-character n-grams: 3--5
-maximum TF-IDF features: 200000
-logistic regression C: 2.0
-class_weight: balanced
-seed: 42
+outputs/paper_v4/frozen_codebert_v1/WEIGHTS_NOT_INCLUDED.txt
 ```
 
-## Final Local LLMs
+### Local LLMs
 
-The final study evaluates:
+The final LLM family contains:
 
-- Mistral-7B-Instruct-v0.3
-- Phi-4
-- Gemma-3-27B
-- QwQ-32B
-- DeepSeek-R1-32B
+- Mistral-7B;
+- Phi-4;
+- Gemma-3-27B;
+- QwQ-32B;
+- DeepSeek-R1-32B.
 
-The final LLM configuration is:
+Final inference settings are recorded in:
 
 ```text
 configs/ollama_final.yaml
 ```
 
-The final inference program is:
+External LLM execution is implemented in:
 
 ```text
-run_ollama.py
+scripts/run_external_llm_v3.py
 ```
 
-The final SLURM script is:
+The frozen external LLM predictions are stored under:
 
 ```text
-run_ollama_final.slurm
+outputs/paper_v3/frozen_external_results_v1/external_llm_metrics/
 ```
 
-Final generation settings:
+---
+
+## Frozen Internal Split
+
+The primary corpus begins with 8,518 PowerShell files. The frozen pipeline removes cross-label exact-hash conflicts, exact duplicates, and leakage-inducing near-duplicate groups before constructing the final split.
+
+Frozen split sizes:
+
+| Partition | n |
+|---|---:|
+| Train | 4,322 |
+| Validation | 609 |
+| Test | 1,265 |
+
+The frozen test set contains 1,049 benign and 216 malicious scripts.
+
+Files:
 
 ```text
-temperature: 0
-seed: 42
-num_ctx: 8192
-num_predict: 2048
-max_input_chars: 6000
-output_format: json
+data/processed/final_frozen/final_train.csv
+data/processed/final_frozen/final_val.csv
+data/processed/final_frozen/final_test.csv
+data/processed/final_frozen/final_split_summary.json
 ```
 
-Scripts longer than 6000 characters use a fixed-budget head-tail representation:
-
-```text
-script head
-...[TRUNCATED]...
-script tail
-```
-
-The value `num_ctx=8192` is the configured Ollama context size for the experiment.
-
-## Running the Final LLM Experiments
-
-Run each model separately using `MODEL_KEY`.
+The split-construction script is:
 
 ```bash
-MODEL_KEY=mistral_7b sbatch run_ollama_final.slurm
-MODEL_KEY=phi4 sbatch run_ollama_final.slurm
-MODEL_KEY=gemma3_27b sbatch run_ollama_final.slurm
-MODEL_KEY=qwq_32b sbatch run_ollama_final.slurm
-MODEL_KEY=deepseek_r1_32b sbatch run_ollama_final.slurm
+python scripts/prepare_final_split.py
 ```
 
-The final LLM jobs were configured for:
+The final split uses exact hashing plus character-boundary TF-IDF near-duplicate grouping with cosine-similarity threshold 0.90.
+
+---
+
+## External Evaluation and Contamination Audit
+
+The external source used for the final contamination-controlled evaluation is:
 
 ```text
-GPU: NVIDIA A100 40 GB
-GPUs per job: 1
-CPU cores: 4
-RAM: 32 GB
-Backend: Ollama
-Container runtime: Apptainer
+wwe123/Benign_and_malicious_PowerShell_scripts
 ```
 
-## Final Output Structure
-
-Final experiment outputs are stored under:
+The downloaded source contains 30,595 rows. After conflict removal, exact deduplication, exact overlap removal against the primary corpus, and near-duplicate exclusion, the final audited corpus contains:
 
 ```text
-outputs/final/
+19,632 samples
+9,324 benign
+10,308 malicious
 ```
 
-Model directories:
+The main audit scripts are:
 
 ```text
-outputs/final/baseline/
-outputs/final/mistral_7b/
-outputs/final/phi4/
-outputs/final/gemma3_27b/
-outputs/final/qwq_32b/
-outputs/final/deepseek_r1_32b/
+scripts/audit_external_exact_v3.py
+scripts/build_external_exact_clean_v3.py
+scripts/audit_external_neardup_v3.py
 ```
 
-Each final LLM directory contains:
+Frozen audit outputs are under:
 
 ```text
-test_predictions.csv
-metrics.json
+outputs/paper_v3/frozen_external_v1/
 ```
 
-Per-sample LLM prediction files preserve information including:
-
-- true label;
-- predicted label;
-- structured-output validity;
-- confidence;
-- API status;
-- truncation status;
-- original character count;
-- transmitted character count;
-- prompt/evaluation token statistics;
-- latency;
-- raw model output.
-
-## Final Result Files
-
-Derived result tables are stored as:
+The balanced external subset used for paired LLM/CodeBERT comparison contains 2,000 samples:
 
 ```text
-outputs/final/main_model_results.csv
-outputs/final/long_script_analysis.csv
-outputs/final/hybrid_results.csv
-outputs/final/bootstrap_ci_summary.csv
-outputs/final/paired_bootstrap_f1.csv
+1,000 benign
+1,000 malicious
 ```
 
-## Statistical Analysis
+Its frozen manifest is:
 
-The final analysis includes:
+```text
+outputs/paper_v3/frozen_external_llm_subset_v1/external_llm_subset_2000.csv
+```
 
-- accuracy;
-- precision;
-- recall;
-- F1;
-- Matthews correlation coefficient;
-- false-positive and false-negative counts;
-- invalid-output rate;
-- inference latency and throughput;
-- bootstrap 95% confidence intervals;
-- exact McNemar paired tests;
-- paired bootstrap F1 differences;
-- script-length-stratified analysis;
-- complementary-error analysis;
-- selective hybrid analysis.
+---
+
+## Main Frozen Results
+
+### Internal conventional robustness and paired statistics
+
+```text
+outputs/paper_v2/frozen_results_v2/
+```
+
+Key files include:
+
+```text
+baseline_v2_summary.csv
+group_bootstrap_ci.csv
+group_paired_delta_f1.csv
+mcnemar_holm_familywise.csv
+long_group_bootstrap_ci.csv
+long_group_paired_delta_f1.csv
+long_mcnemar_holm.csv
+operational_results.csv
+```
+
+### External predictions and paired statistics
+
+```text
+outputs/paper_v3/frozen_external_results_v1/
+```
+
+This directory includes:
+
+- full-audited-corpus predictions for four conventional classifiers;
+- balanced-2,000 predictions for the five local LLMs;
+- paired F1 bootstrap analyses;
+- exact McNemar tests;
+- long-script stratified analyses.
+
+### CodeBERT
+
+```text
+outputs/paper_v4/frozen_codebert_v1/
+outputs/paper_v4/frozen_codebert_statistics_v1/
+```
+
+These include internal, validation, and external per-sample predictions plus paired statistical comparisons with the primary sparse classifier.
+
+### Lexical distribution-shift analysis
+
+```text
+outputs/paper_v4/frozen_distribution_shift_v1/
+```
+
+Relevant scripts:
+
+```text
+scripts/analyze_distribution_shift_v4.py
+scripts/analyze_similarity_bin_performance_v4.py
+scripts/analyze_distance_q1_statistics_v4.py
+scripts/analyze_class_similarity_margin_v4.py
+```
+
+### Near-duplicate threshold sensitivity
+
+```text
+outputs/paper_v4/frozen_threshold_sensitivity_v1/
+```
+
+Relevant scripts:
+
+```text
+scripts/analyze_neardup_threshold_sensitivity_v4.py
+scripts/run_external_baselines_threshold095_v4.py
+scripts/check_threshold095_identity_v4.py
+scripts/finalize_threshold_sensitivity_v4.py
+```
+
+The evaluated exclusion thresholds are:
+
+```text
+0.80, 0.85, 0.90, 0.95
+```
+
+The conventional-model ranking is unchanged across all four thresholds.
+
+---
+
+## Key Frozen Results
+
+### Internal test set
+
+| Model | F1 | MCC |
+|---|---:|---:|
+| LR Char+Word | 0.943 | 0.932 |
+| LR Char | 0.934 | 0.921 |
+| SVM Char | 0.941 | 0.930 |
+| SVM Word | 0.943 | 0.932 |
+| CodeBERT | 0.935 | 0.922 |
+| Mistral-7B | 0.792 | 0.751 |
+| Phi-4 | 0.896 | 0.876 |
+| Gemma-3-27B | 0.608 | 0.565 |
+| QwQ-32B | 0.775 | 0.741 |
+| DeepSeek-R1-32B | 0.857 | 0.833 |
+
+CodeBERT's paired internal F1 difference from the primary LR Char+Word classifier is not statistically clear.
+
+### Balanced external subset (n = 2,000)
+
+| Model | F1 | MCC |
+|---|---:|---:|
+| LR Char+Word | 0.807 | 0.714 |
+| LR Char | 0.813 | — |
+| SVM Char | 0.844 | — |
+| SVM Word | 0.813 | — |
+| CodeBERT | 0.875 | 0.792 |
+| Mistral-7B | 0.897 | 0.804 |
+| Phi-4 | 0.943 | 0.891 |
+| Gemma-3-27B | 0.815 | 0.604 |
+| QwQ-32B | 0.909 | 0.823 |
+| DeepSeek-R1-32B | 0.916 | 0.840 |
+
+Several local LLMs and CodeBERT improve clearly over the primary sparse classifier under external evaluation.
+
+### Lexically farthest malicious subset
+
+RQ6 uses the 200 external malicious scripts in the farthest nearest-training-similarity quintile.
+
+| Model | Recall |
+|---|---:|
+| LR Char+Word | 0.045 |
+| LR Char | 0.045 |
+| SVM Word | 0.070 |
+| SVM Char | 0.170 |
+| CodeBERT | 0.415 |
+| Mistral-7B | 0.625 |
+| DeepSeek-R1-32B | 0.625 |
+| QwQ-32B | 0.635 |
+| Phi-4 | 0.730 |
+| Gemma-3-27B | 0.870 |
+
+This analysis is descriptive of association with lexical training-set distance. It should not be interpreted as establishing a causal mechanism.
+
+---
+
+## Environment Setup
+
+Create a Python environment:
+
+```bash
+python3 -m venv .venv
+source .venv/bin/activate
+pip install --upgrade pip
+pip install -r requirements.txt
+```
+
+Core analysis dependencies include NumPy, pandas, SciPy, scikit-learn, matplotlib, and statsmodels. CodeBERT additionally requires the Hugging Face/PyTorch stack specified by the project environment used for `scripts/run_codebert_v4.py`.
+
+Local LLM inference requires Ollama and locally available model weights corresponding to the configured model names.
+
+---
+
+## Recommended Reproduction Paths
+
+### A. Verify the frozen package only
+
+From the repository root:
+
+```bash
+shasum -a 256 -c SHA256SUMS.txt
+```
+
+On Linux, the equivalent is:
+
+```bash
+sha256sum -c SHA256SUMS.txt
+```
+
+This checks the integrity of the GitHub reproducibility package.
+
+### B. Recompute statistical analyses from frozen predictions
+
+The fastest reviewer path is to use the included per-sample predictions and rerun the analysis scripts rather than repeating all LLM inference.
+
+Examples:
+
+```bash
+python scripts/analyze_statistics_v2.py
+python scripts/analyze_external_statistics_v3.py
+python scripts/analyze_codebert_statistics_v4.py
+python scripts/analyze_distribution_shift_v4.py
+python scripts/analyze_similarity_bin_performance_v4.py
+python scripts/analyze_distance_q1_statistics_v4.py
+python scripts/finalize_threshold_sensitivity_v4.py
+```
+
+Some scripts write to their original experiment output paths. For archival verification, compare regenerated summaries with the corresponding frozen directories rather than overwriting the frozen snapshots.
+
+### C. Reproduce the conventional baselines
+
+Prepare the frozen primary split, then run:
+
+```bash
+python scripts/run_baselines_v2.py
+```
+
+For the full external conventional evaluation:
+
+```bash
+python scripts/run_external_baselines_v3_1.py
+```
+
+### D. Reproduce CodeBERT
+
+Use:
+
+```bash
+python scripts/run_codebert_v4.py
+```
+
+with:
+
+```text
+configs/v4/codebert_v4.yaml
+```
+
+The original fine-tuned checkpoint is not included, so this path retrains CodeBERT from `microsoft/codebert-base` using the frozen configuration.
+
+### E. Reproduce local-LLM inference
+
+Use the frozen LLM configuration in:
+
+```text
+configs/ollama_final.yaml
+```
+
+and the available LLM inference scripts. Reproducing the LLM results requires the corresponding local Ollama models and adequate GPU resources.
+
+Because local model binaries are not distributed in this repository, the included frozen per-sample predictions are the recommended artifact for statistical verification.
+
+---
+
+## Statistical Procedures
+
+The frozen analyses use:
+
+- F1 and MCC as primary classification summaries;
+- recall for positive-only subsets;
+- 10,000 paired bootstrap resamples for paired metric differences;
+- exact McNemar tests for paired correctness disagreement;
+- Holm correction within predefined comparison families;
+- class-stratified lexical-distance analysis;
+- long-script stratification using original script length.
+
+McNemar tests quantify paired correctness disagreement and should not be interpreted as direct tests of F1 differences.
+
+---
 
 ## Long-Script Analysis
 
-The final test set is stratified into:
+Scripts are partitioned using original character count:
 
 ```text
 <= 6000 characters
 > 6000 characters
 ```
 
-For LLM inference, scripts in the second group are represented using the 6000-character head-tail strategy.
+The local-LLM pipeline uses a fixed maximum input budget. The conventional sparse classifiers process the full script, so differences between short and long scripts are not interpreted as a causal truncation effect.
 
-The distinction is based on the original script length. The conventional baseline itself is not described as using this LLM truncation mechanism.
+---
 
-## Selective Hybrid Verification
+## Selective Hybrid Analysis
 
-A selective second-stage verification strategy is evaluated.
-
-Decision rule:
+A post-hoc selective verifier is evaluated using the rule:
 
 ```text
-if baseline prediction == negative
-and original script length > 6000 characters:
-    use the LLM prediction for second-stage verification
+if primary conventional prediction == benign
+and original script length > 6000:
+    invoke selected LLM verifier
 else:
-    retain the baseline prediction
+    keep the primary prediction
 ```
 
-Hybrid variants are evaluated using:
+This analysis is exploratory because the rule was developed after final-test error inspection.
 
-- Phi-4
-- DeepSeek-R1-32B
-- QwQ-32B
+---
 
-This strategy is intended to study whether complementary LLM errors can reduce false negatives without requiring LLM inference for every sample.
+## Integrity and Frozen Artifacts
 
-## Publication Figures
-
-Figures are stored under:
-
-```text
-outputs/final/figures/
-```
-
-Generated figures:
-
-```text
-fig1_overall_f1.pdf
-fig1_overall_f1.png
-fig2_precision_recall.pdf
-fig2_precision_recall.png
-fig3_length_f1.pdf
-fig3_length_f1.png
-fig4_hybrid_fp_fn.pdf
-fig4_hybrid_fp_fn.png
-```
-
-## LaTeX Tables
-
-Publication-ready LaTeX tables are stored under:
-
-```text
-outputs/final/paper/
-```
-
-Generated tables:
-
-```text
-table1_overall.tex
-table2_length.tex
-table3_hybrid.tex
-```
-
-## Environment Setup
-
-Create and activate the Python environment:
+Top-level package integrity:
 
 ```bash
-python -m venv .venv
-source .venv/bin/activate
-pip install -r requirements.txt
+sha256sum -c SHA256SUMS.txt
 ```
 
-Important analysis dependencies include:
+Several frozen subdirectories also contain their own `SHA256SUMS.txt` files. Those correspond to the original experiment snapshots.
 
-```text
-pandas
-numpy
-scikit-learn
-scipy
-matplotlib
-statsmodels
-```
+The CodeBERT result directory is an exception: the large checkpoint weights were deliberately omitted from the GitHub package. Its retained prediction and metric files are covered by the top-level repository checksum.
 
-## Tests
+---
 
-Run unit tests with:
+## Data and Model Availability
 
-```bash
-pytest
-```
+Raw malware samples and large model binaries are not redistributed in this repository.
 
-## Reproducibility Notes
+The repository instead provides:
 
-- Final LLM random seed: 42.
-- LLM temperature: 0.
-- All final classifiers are evaluated on the same frozen test manifest.
-- Frozen data integrity is checked using SHA-256 checksums.
-- Exact duplicates are removed before splitting.
-- Near-duplicate scripts are grouped using character-level TF-IDF cosine similarity.
-- Near-duplicate groups are kept disjoint across final partitions.
-- Development-contaminated groups are excluded from the final test set.
-- Raw LLM outputs are retained for audit.
-- Invalid structured outputs are explicitly recorded.
-- LLM input truncation uses a fixed 6000-character head-tail strategy.
-- Dataset scripts are never executed.
+- source and preparation scripts;
+- frozen train/validation/test manifests;
+- external audit manifests;
+- per-sample model predictions;
+- statistical result files;
+- frozen summaries and publication tables;
+- integrity checksums.
 
-## Data Provenance
+Users should obtain public datasets and model weights from their original providers and comply with their licenses and institutional security policies.
 
-Dataset provenance is recorded in:
+---
 
-```text
-DATA_PROVENANCE.json
-```
+## Reproducibility Scope
 
-Raw malware samples are intentionally not bundled with this repository.
+The repository supports two levels of reproduction:
 
-## Complete Reproduction Sequence
+1. **Artifact-level verification:** recompute metrics/statistics from frozen predictions and verify checksums.
+2. **End-to-end rerun:** reacquire public datasets and model weights, rebuild the frozen split/audit pipeline, retrain conventional and CodeBERT models, and rerun local LLM inference.
 
-```text
-1. Download public data
-2. Prepare primary data
-3. Build leakage-controlled final split
-4. Verify SHA256SUMS
-5. Run final baseline
-6. Run five final Ollama LLMs
-7. Run final statistical analysis
-8. Generate publication figures
-9. Generate LaTeX tables
-```
+Exact regeneration of local-LLM outputs may depend on Ollama version, model build, runtime environment, and hardware. The frozen prediction files are therefore provided as the authoritative outputs used in the study.
 
-Paper metrics should be generated from the files under `outputs/final/` rather than manually hard-coded.
+---
+
+## Citation
+
+If this repository is used in academic work, please cite the associated manuscript once bibliographic details are available.
